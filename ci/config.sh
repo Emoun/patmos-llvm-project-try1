@@ -13,7 +13,7 @@ fi
 
 # Figure out what target architecture to build for
 if [ "$TARGETS" = "x86" ]; then
-	BUILD_TARGET="X86"
+	BUILD_TARGET="Patmos"
 else
 	BUILD_TARGET="X86"
 fi
