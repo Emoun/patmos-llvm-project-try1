@@ -609,6 +609,8 @@ namespace llvm {
       // know that they are the exact loop bounds.
       if (!isSinglepathFunction(MF)) return;
 
+      assert(false & "TODO: reimplement loopbound support");
+
       // scan the header for loopbound info
       // TODO this is copied from PatmosSinglePathInfo.cpp
       MachineBasicBlock *Header = Loop->getHeader();

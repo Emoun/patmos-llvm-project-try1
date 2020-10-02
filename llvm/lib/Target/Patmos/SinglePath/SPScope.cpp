@@ -691,15 +691,7 @@ SPScope::SPScope(SPScope *parent, MachineLoop &loop, MachineFunction &MF, Machin
     (*found)->addExitTarget(Priv->getPredicatedParent(edge.second));
   }
 
-  // scan the header for loopbound info
-  for (MachineBasicBlock::iterator MI = header->begin(), ME = header->end();
-      MI != ME; ++MI) {
-    if (MI->getOpcode() == Patmos::PSEUDO_LOOPBOUND) {
-      // max is the second operand (idx 1)
-      Priv->LoopBound = MI->getOperand(1).getImm() + 1;
-      break;
-    }
-  }
+  // TODO: scan the header for loopbound info
   assert(Priv->LoopBound >= 0);
 }
 
