@@ -36,7 +36,13 @@ bool PatmosInstPrinter::isBundled(const MCInst *MI) const {
 void PatmosInstPrinter::printInst(const MCInst *MI, raw_ostream &O,
                                   StringRef Annot)
 {
-  // This prints the bundle start marker and the guard using printInstPrefix.
+  // Prints bundle marker '{' and/or guard predicate.
+  // This is a workaround. The they cannot be printed before the mnemonic by
+  // tablegen, otherwise we would not be able to generate matcher tables.
+  // We therefore skip printing them in the AsmString and print here before 
+  // the rest of the instruction.
+  printInstPrefix(MI, O);
+  
   printInstruction(MI, O);
 
   // Last instruction in bundle must not have the bundle bit set.
@@ -59,10 +65,6 @@ void PatmosInstPrinter::printInstPrefix(const MCInst *MI, raw_ostream &O) {
   }
 
   // Print the predicate register.
-  // This is a workaround. The guard cannot be printed before the mnemonic by
-  // tablegen, otherwise we would not be able to generate matcher tables.
-  // We therefore skip printing the guard in the AsmString and print it here
-  // as a prefix instead.
   const MCInstrDesc &Desc = MII.get(MI->getOpcode());
 
   if (Desc.isPredicable()) {
