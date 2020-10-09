@@ -82,8 +82,7 @@ class PatmosInst<dag outs, dag ins,
 {
   // we print the guard after the mnemonic to make tablegen happy, we use custom methods to bring it in front of the opcode
   // The predicate *must* be the first ins operand and must be named 'p'.
-  let AsmString   = op # "${p:skip}\t" # asmstr;
-  let DisableEncoding = "$p.neg";
+  let AsmString   = op # "\t" # asmstr;
 
   bits<4> p;
   let Inst{30-27} = p;
